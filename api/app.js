@@ -1,10 +1,17 @@
+// require('dotenv').config();
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const port = 8080;
 
-// const authRoutes = require('./routes/auth');
+// const session = require('express-session');
+// const passport = require('passport');
+// const passportLocalMongoose = require('passport-local-mongoose');
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const findOrCreate = require('mongoose-findorcreate');
+
+const authRoutes = require('./routes/auth');
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,7 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/auth', authRoutes);
+app.use('/auth', authRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
@@ -32,16 +39,13 @@ app.use((error, req, res, next) => {
   res.status(status).json({ message: message });
 });
 
-console.log('process.env.MONGO_USER : ', process.env.MONGO_USER);
-console.log('process.env.MONGO_USER_PASS : ', process.env.MONGO_USER_PASS);
-console.log('process.env.MONGO_DB : ', process.env.MONGO_DB);
-
 mongoose
   .connect(
     `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_USER_PASS}@cluster0-8gblk.mongodb.net/${process.env.MONGO_DB}`
   )
   .then((result) => {
     app.listen(process.env.PORT || port);
+    console.log('listening port : ', process.env.PORT || port);
   })
   .catch((err) => {
     console.log(

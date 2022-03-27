@@ -66,9 +66,7 @@ const Login: React.FC<LoginProps> = (props) => {
       <div>
         <GoogleLogin
           // use your client id here
-          clientId={
-            '376609296383-je8ejf9r7ufnka4ej40j9r8gsec786eh.apps.googleusercontent.com'
-          }
+          clientId={'<YOUR_CLIENT_ID>'}
           buttonText="Login with google"
           responseType="code"
           /**
