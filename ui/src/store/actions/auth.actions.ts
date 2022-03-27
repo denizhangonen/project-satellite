@@ -83,3 +83,23 @@ export const logout = () => {
     type: ACTION_TYPES.AUTH_LOGOUT,
   };
 };
+
+export const socialLoginCompleted =
+  (data: any) => async (dispatch: Dispatch) => {
+    dispatch(authStart());
+    try {
+      const dT: any = jwtDecode(data.token);
+      const successObj: IAuth = {
+        email: data.email,
+        token: data.token,
+        userId: data._id,
+        expirationDate: new Date(dT.exp * 1000),
+      };
+
+      console.log('successObj :', successObj);
+      await AUTH_UTILITIES.setLocalStorage(successObj);
+      dispatch(authSuccess(successObj));
+    } catch (err: any) {
+      dispatch(authFail(err));
+    }
+  };

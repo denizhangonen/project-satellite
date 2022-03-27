@@ -53,6 +53,7 @@ const Login: React.FC<LoginProps> = (props) => {
         const result = await login(authResult['code']);
         console.log(authResult);
         console.log('result : ', result);
+        dispatch(AUTH_ACTIONS.socialLoginCompleted(result));
       } else {
         throw new Error(authResult);
       }
@@ -66,7 +67,7 @@ const Login: React.FC<LoginProps> = (props) => {
       <div>
         <GoogleLogin
           // use your client id here
-          clientId={'<YOUR_CLIENT_ID>'}
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
           buttonText="Login with google"
           responseType="code"
           /**

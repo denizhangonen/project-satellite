@@ -2,10 +2,12 @@
 
 # dependencies
 /node_modules
-./ui/node_modules
-./api/node_modules
+ui/node_modules
+api/node_modules
 /.pnp
 .pnp.js
+api/nodemon.json
+
 
 # testing
 /coverage
