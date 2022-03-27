@@ -17,7 +17,9 @@ DB: MongoDB
 Front-end: React
 
 # Apps / Features That are ready
-None
+
+**Social Logins**
+1. Login with Google
 
 # Apps / Features Will be Implemented
 
@@ -30,7 +32,7 @@ None
 6. LinkedIn
 
 # Doing
-1. Login with Google
+- Login with Twitter
 
 
 
