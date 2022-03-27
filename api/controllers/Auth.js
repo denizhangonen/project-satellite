@@ -59,11 +59,15 @@ exports.loginWGoogle = async (req, res) => {
       console.log('savedUSer : ', savedUser);
     }
 
-    // generate user token and return
-
     console.log('user : ', user);
+    // generate user token and return
+    const token = AUTH_TOOLS.generateToken(user.email, user._id);
 
-    res.send({ user });
+    // return response
+    res.status(200).json({
+      token: token,
+      ...user,
+    });
   } catch (e) {
     console.log(e);
     res.status(401).send();
