@@ -16,7 +16,7 @@ Back-end : NodeJS, Express
 DB: MongoDB
 Front-end: React
 
-# Apps / Features That are ready
+# Apps / Features That are Ready
 
 **Social Logins**
 1. Login with Google
