@@ -2,7 +2,7 @@
 
 Welcome!
 
-This project contains some "satellite" apps/features for the most of the apps out there such as Social Logins, Email Notifications, Push Notification, Reporting, etc. 
+This project contains some "satellite" apps/features for the most of the apps out there such as Social Logins, Payments, Email Notifications, Push Notification, Reporting, etc. 
 
 Just started working on this so I'll be posting progress here so that you guys would know which app/feature is ready to be used and all.
 
