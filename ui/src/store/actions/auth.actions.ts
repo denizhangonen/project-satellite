@@ -92,7 +92,7 @@ export const socialLoginCompleted =
       const successObj: IAuth = {
         email: data.email,
         token: data.token,
-        userId: data._id,
+        userId: 'data._id',
         expirationDate: new Date(dT.exp * 1000),
       };
 

@@ -1,11 +1,11 @@
 const { validationResult } = require('express-validator/check');
 
-const AUTH_TOOLS = require('../util/authTools');
-const customError = require('../util/customError');
+const AUTH_TOOLS = require('../../util/authTools');
+const customError = require('../../util/customError');
 
-const User = require('../models/User');
+const User = require('../../models/User');
 
-const googleOAuth = require('../util/googleOAuth');
+const googleOAuth = require('../../util/googleOAuth');
 
 exports.loginWGoogle = async (req, res) => {
   console.log('!!! exports.loginWGoogle !!!');

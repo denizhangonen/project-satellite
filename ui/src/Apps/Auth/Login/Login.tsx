@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import * as AUTH_ACTIONS from '../../../store/actions/auth.actions';
@@ -15,11 +15,38 @@ interface LoginProps {}
 const Login: React.FC<LoginProps> = (props) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const search = useLocation();
+
+  console.log('props :', props);
 
   const auth = useSelector<any, IAuth>((state) => state.auth.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const emailInfo = new URLSearchParams(search.search).get('email');
+    const token = new URLSearchParams(search.search).get('token');
+    const name = new URLSearchParams(search.search).get('name');
+    const profilePic = new URLSearchParams(search.search).get('profilePicture');
+
+    console.log('search : ', search);
+    console.log('token:', token);
+    console.log('email:', emailInfo);
+    console.log('name:', name);
+    console.log('profilePicture:', profilePic);
+
+    const data = {
+      email: emailInfo,
+      token,
+      name,
+      profilePic,
+    };
+
+    dispatch(AUTH_ACTIONS.socialLoginCompleted(data));
+  }, []);
 
   useEffect(() => {
     if (auth && auth.token && auth.userId) {
@@ -62,9 +89,31 @@ const Login: React.FC<LoginProps> = (props) => {
     }
   };
 
+  const googleHandler = () => {
+    window.open('http://localhost:8080/auth/passport-google', '_self');
+  };
+
+  const gitHubHandler = () => {
+    window.open('http://localhost:8080/auth/passport-github', '_self');
+  };
+
+  const facebookHandler = () => {
+    window.open('http://localhost:8080/auth/passport-facebook', '_self');
+  };
+
   return (
     <div>
       <div>
+        <p>
+          <button onClick={googleHandler}>Login with Google</button>
+        </p>
+        <p>
+          <button onClick={gitHubHandler}>Login with GitHub</button>
+        </p>
+        <p>
+          <button onClick={facebookHandler}>Login with Facebook</button>
+        </p>
+
         <GoogleLogin
           // use your client id here
           clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}

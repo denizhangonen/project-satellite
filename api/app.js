@@ -4,9 +4,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const port = 8080;
+const passport = require('passport');
+
+const passportSetup = require('./controllers/Auth/passport');
 
 // const session = require('express-session');
-// const passport = require('passport');
 // const passportLocalMongoose = require('passport-local-mongoose');
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
 // const findOrCreate = require('mongoose-findorcreate');
@@ -17,6 +19,8 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(passport.initialize());
 
 // set headers to prevent cors errors on client side
 app.use((req, res, next) => {
