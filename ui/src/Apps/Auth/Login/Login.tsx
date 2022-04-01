@@ -93,7 +93,7 @@ const Login: React.FC<LoginProps> = (props) => {
           </div>
           <div className="loginButton twitter" onClick={twitterHandler}>
             {/* <img src={Github} alt="" className="icon" /> */}
-            Github
+            Twitter
           </div>
         </div>
         <div className="center">
