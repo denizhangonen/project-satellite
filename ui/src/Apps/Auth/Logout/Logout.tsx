@@ -16,6 +16,7 @@ const Logout: React.FC<LogoutProps> = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('calling');
     dispatch(AUTH_ACTIONS.logout());
   }, []);
 

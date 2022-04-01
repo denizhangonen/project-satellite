@@ -31,6 +31,7 @@ const authReducer = (state = initialState, action: IAction) => {
         auth: null,
       };
     case ACTION_TYPES.AUTH_LOGOUT:
+      console.log('case ACTION_TYPES.AUTH_LOGOUT:');
       return {
         ...state,
         auth: null,

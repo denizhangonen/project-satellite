@@ -78,6 +78,7 @@ export const authCheckState = () => async (dispatch: Dispatch) => {
 };
 
 export const logout = () => {
+  console.log('export const logout = () => {');
   AUTH_UTILITIES.clearLocalStorage();
   return {
     type: ACTION_TYPES.AUTH_LOGOUT,
@@ -94,6 +95,7 @@ export const socialLoginCompleted =
         token: data.token,
         userId: 'data._id',
         expirationDate: new Date(dT.exp * 1000),
+        profilePicture: data.profilePic,
       };
 
       console.log('successObj :', successObj);

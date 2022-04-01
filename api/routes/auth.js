@@ -158,6 +158,49 @@ router.get(
   }
 );
 
+router.get(
+  '/passport-twitter',
+  (req, res, next) => {
+    console.log('/passport-twitter');
+    next();
+  },
+  passport.authenticate('twitter')
+);
+
+router.get(
+  '/twitter/callback',
+  (req, res, next) => {
+    console.log('/twitter/callback');
+    next();
+  },
+  passport.authenticate('twitter', {
+    session: false,
+    // successRedirect: SUCCESS_URL,
+  }),
+  (req, res, next) => {
+    console.log('twitter hop last stop? req.user:', req.user);
+    const { token, email, name, profilePic } = req.user;
+    // res.redirect(SUCCESS_URL);
+
+    const htmlWithEmbeddedJWT = `
+    <html>
+      <script>
+        // Save JWT to localStorage
+        window.localStorage.setItem('JWT', '${req.user}');
+        // Redirect browser to root of application
+        window.location.href = '${SUCCESS_URL}?token=${token}&email=${email}&name=${name}&profilePicture=${profilePic}';
+      </script>
+    </html>
+    `;
+
+    res.send(htmlWithEmbeddedJWT);
+    // res.json({
+    //   message: 'Signup successful',
+    //   user: req.user,
+    // });
+  }
+);
+
 router.get(SUCCESS_URL, (req, res, next) => {
   console.log('success url');
   if (req.user) {

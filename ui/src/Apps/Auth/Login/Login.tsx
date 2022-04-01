@@ -10,6 +10,10 @@ import GoogleLogin from 'react-google-login';
 
 import { useSelector } from 'react-redux';
 
+import Google from '../img/google.png';
+import Facebook from '../img/facebook.png';
+import Github from '../img/github.png';
+
 interface LoginProps {}
 
 const Login: React.FC<LoginProps> = (props) => {
@@ -54,41 +58,6 @@ const Login: React.FC<LoginProps> = (props) => {
     }
   }, [auth]);
 
-  const login = async (code: any) => {
-    console.log('login function');
-    return fetch('http://localhost:8080/auth/login-with-google', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ code }),
-    }).then((res) => {
-      console.log('res is OK');
-      if (res.ok) {
-        return res.json();
-      } else {
-        console.log('----res is NOT OK');
-        return Promise.reject(res);
-      }
-    });
-  };
-
-  const responseGoogle = async (authResult: any) => {
-    console.log('responseGoogle - authResult:', authResult);
-    try {
-      if (authResult['code']) {
-        const result = await login(authResult['code']);
-        console.log(authResult);
-        console.log('result : ', result);
-        dispatch(AUTH_ACTIONS.socialLoginCompleted(result));
-      } else {
-        throw new Error(authResult);
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const googleHandler = () => {
     window.open('http://localhost:8080/auth/passport-google', '_self');
   };
@@ -101,34 +70,41 @@ const Login: React.FC<LoginProps> = (props) => {
     window.open('http://localhost:8080/auth/passport-facebook', '_self');
   };
 
-  return (
-    <div>
-      <div>
-        <p>
-          <button onClick={googleHandler}>Login with Google</button>
-        </p>
-        <p>
-          <button onClick={gitHubHandler}>Login with GitHub</button>
-        </p>
-        <p>
-          <button onClick={facebookHandler}>Login with Facebook</button>
-        </p>
+  const twitterHandler = () => {
+    window.open('http://localhost:8080/auth/passport-twitter', '_self');
+  };
 
-        <GoogleLogin
-          // use your client id here
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID || ''}
-          buttonText="Login with google"
-          responseType="code"
-          /**
-           * To get access_token and refresh_token in server side,
-           * the data for redirect_uri should be postmessage.
-           * postmessage is magic value for redirect_uri to get credentials without actual redirect uri.
-           */
-          redirectUri="login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
+  return (
+    <div className="login">
+      <h1 className="loginTitle">Choose a Login Method</h1>
+      <div className="wrapper">
+        <div className="left">
+          <div className="loginButton google" onClick={googleHandler}>
+            {/* <img src={Google} alt="" className="icon" /> */}
+            Google
+          </div>
+          <div className="loginButton facebook" onClick={facebookHandler}>
+            {/* <img src={Facebook} alt="" className="icon" /> */}
+            Facebook
+          </div>
+          <div className="loginButton github" onClick={gitHubHandler}>
+            {/* <img src={Github} alt="" className="icon" /> */}
+            Github
+          </div>
+          <div className="loginButton twitter" onClick={twitterHandler}>
+            {/* <img src={Github} alt="" className="icon" /> */}
+            Github
+          </div>
+        </div>
+        <div className="center">
+          <div className="line" />
+          <div className="or">OR</div>
+        </div>
+        <div className="right">
+          <input type="text" placeholder="Username" />
+          <input type="text" placeholder="Password" />
+          <button className="submit">Login</button>
+        </div>
       </div>
     </div>
   );
